@@ -1,0 +1,76 @@
+---
+title: "Random sampling for Coffee break volunteer list"
+date: 15 Nov 2018
+output:
+html_document:
+theme: cerulean
+---
+
+<style type="text/css">
+
+body{ /* Normal  */
+      font-size: 12px;
+  }
+td {  /* Table  */
+  font-size: 8px;
+}
+h1.title {
+  font-size: 24px;
+  color: DarkRed;
+}
+h1 { /* Header 1 */
+  font-size: 22px;
+  color: DarkBlue;
+}
+h2 { /* Header 2 */
+    font-size: 20px;
+  color: DarkBlue;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+}
+h4 { /* Header 4 */
+  font-size: 14px;
+  font-family: "Times New Roman", Times, serif;
+  color: Black;
+}
+code.r{ /* Code block */
+    font-size: 12px;
+}
+pre { /* Code block - determines code spacing between lines */
+    font-size: 14px;
+}
+</style>
+
+
+### Generating 100 different names
+```{r echo=T}
+vec1 <- rep( letters , length.out = 100 )
+vec2 <- c(1:100)
+```
+
+### Join two vectors
+```{r echo=T}
+fimm_students <- paste( vec1 , vec2 , sep="" )
+fimm_students
+```
+
+### Creating 10 labs (vectors) of different sizes
+```{r echo=T}
+a <- split( fimm_students , sample(10, 100 , repl = TRUE) )
+a
+```
+
+### Draw "n" samples (50 in this case) across the vectors (labs) without replacement wrt vector (lab) size
+```{r echo=T}
+ll = sapply(a, length)
+target = 50
+new_ll = 0
+while (sum(new_ll) != target){
+  new_ll = round(ll * target / sum(ll) + runif(length(ll), -0.5, 0.5))
+}
+final_list = unlist(lapply(1:length(a), function(i) sample(a[[i]], new_ll[i])))
+final_list
+```
