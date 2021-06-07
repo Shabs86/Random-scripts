@@ -1,2 +1,2 @@
-# Random-scripts
-Scripts for varied uses!
+# Genomic Utility Scripts 
+Scripts for varied uses within genomics and beyond!
